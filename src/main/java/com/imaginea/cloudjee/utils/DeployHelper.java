@@ -85,7 +85,7 @@ public class DeployHelper extends BaseTest {
 		HttpResponse response = httpclient.execute(httppost);
 		System.out.println("ResponseCode: "
 				+ response.getStatusLine().getStatusCode());
-
+		
 		return readResponse(response);
 
 	}
@@ -94,11 +94,13 @@ public class DeployHelper extends BaseTest {
 
 		DefaultHttpClient httpclient = CreateHttpClient
 				.createHttpClientConnection();
-		HttpPost httpget = new HttpPost(ConfigProperties.START + appName);
+		HttpPost httpget = new HttpPost(ConfigProperties.START + ConfigProperties.APP_NAME);
 		httpget.setHeader("Cookie", auth);
+		System.out.println("Start Of APP : "+httpget.getURI());
 		HttpResponse response = httpclient.execute(httpget);
 		System.out.println("ResponseCode: "
 				+ response.getStatusLine().getStatusCode());
+		
 		return readResponse(response);
 
 	}
@@ -131,7 +133,7 @@ public class DeployHelper extends BaseTest {
 	private String undeploy(String appName) throws Exception{
 		DefaultHttpClient httpclient = CreateHttpClient
 				.createHttpClientConnection();
-		HttpPost httpget = new HttpPost(ConfigProperties.UNDEPLOY + appName);
+		HttpPost httpget = new HttpPost(ConfigProperties.UNDEPLOY + ConfigProperties.APP_NAME);
 		httpget.setHeader("Cookie", auth);
 		HttpResponse response = httpclient.execute(httpget);
 		System.out.println("ResponseCode: "
@@ -142,7 +144,8 @@ public class DeployHelper extends BaseTest {
 	
 	protected String executeCommand(String cmd) throws Exception{
 		if(cmd.equals("deploy")){
-			return deploy(new File(ConfigProperties.APP_PATH), ConfigProperties.APP_NAME);
+			File warPath = new File(ConfigProperties.APP_PATH);
+			return deploy(warPath, ConfigProperties.APP_NAME);
 		}else if(cmd.equals("start")){
 			return start(ConfigProperties.START);
 		}else if(cmd.equals("stop")){

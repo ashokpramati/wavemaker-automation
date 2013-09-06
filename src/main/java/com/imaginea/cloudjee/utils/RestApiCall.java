@@ -25,6 +25,7 @@ public class RestApiCall {
 			e.printStackTrace();
 		}
 		log.debug("Got response as "+ response);
+		System.out.println(response);
 		return response;
 	}
 

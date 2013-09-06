@@ -38,7 +38,7 @@ public class RestApiTest extends BaseTest{
 		}
 	}
 
-	@Test(enabled=false)
+	@Test(dependsOnMethods="verifyStartOfApp")
 	public void verifyListOfApp() throws ParseException{		
 		String JsonResponse = RestApiCall.getJSONResponse("list");
 		JsonNode node = getJsonNode(JsonResponse);
@@ -48,7 +48,7 @@ public class RestApiTest extends BaseTest{
 		}
 	}
 	
-	@Test(enabled=false)
+	@Test(dependsOnMethods="verifyStopOfApp")
 	public void verifyStartOfApp() throws ParseException{		
 		String JsonResponse = RestApiCall.getJSONResponse("start");
 		JsonNode node = getJsonNode(JsonResponse);
@@ -59,7 +59,7 @@ public class RestApiTest extends BaseTest{
 	}
 	
 		
-	@Test(enabled=false)
+	@Test(dependsOnMethods="verifyDeployOfApp")
 	public void verifyStopOfApp() throws ParseException{		
 		String JsonResponse = RestApiCall.getJSONResponse("stop");
 		JsonNode node = getJsonNode(JsonResponse);
@@ -70,7 +70,7 @@ public class RestApiTest extends BaseTest{
 	}
 	
 	
-	@Test(enabled=false)
+	@Test(dependsOnMethods="verifyListOfApp")
 	public void verifyUndeployOfApp() throws ParseException{		
 		String JsonResponse = RestApiCall.getJSONResponse("undeploy");
 		JsonNode node = getJsonNode(JsonResponse);
