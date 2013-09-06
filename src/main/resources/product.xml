@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<test>
+
+	<validProduct>Sony</validProduct>
+	<!-- <validProduct>Computers</validProduct>
+	<validProduct>Krishna</validProduct>	 -->
+	<nativeId>250</nativeId>
+	<invalidProduct>one</invalidProduct>
+	<!-- <invalidProduct>sdf1</invalidProduct> -->
+	<jsFile>return document.title</jsFile>
+
+</test>

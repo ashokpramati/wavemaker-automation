@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Sample test suite" verbose="1" preserve-order="false">
+	<test name="Sample Test Demonstrating testNG flow">
+		<classes>			
+			<!-- <class name="com.rr.ics.tests.SmokeTest"/> -->
+			
+			<class name="com.rr.ics.test.search.ValidElasticSearch"/>
+			<!-- <class name="com.rr.ics.tests.TestAuthentication"/> -->
+		</classes>
+	</test>
+</suite>
