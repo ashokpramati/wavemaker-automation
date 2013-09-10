@@ -90,7 +90,7 @@ public class DeployHelper extends BaseTest {
 
 	}
 	
-	private String start(String appName) throws Exception {
+	private String start() throws Exception {
 
 		DefaultHttpClient httpclient = CreateHttpClient
 				.createHttpClientConnection();
@@ -130,7 +130,7 @@ public class DeployHelper extends BaseTest {
 		return readResponse(response);
 	}
 	
-	private String undeploy(String appName) throws Exception{
+	private String undeploy() throws Exception{
 		DefaultHttpClient httpclient = CreateHttpClient
 				.createHttpClientConnection();
 		HttpPost httpget = new HttpPost(ConfigProperties.UNDEPLOY + ConfigProperties.APP_NAME);
@@ -147,13 +147,13 @@ public class DeployHelper extends BaseTest {
 			File warPath = new File(ConfigProperties.APP_PATH);
 			return deploy(warPath, ConfigProperties.APP_NAME);
 		}else if(cmd.equals("start")){
-			return start(ConfigProperties.START);
+			return start();
 		}else if(cmd.equals("stop")){
 			return stop(ConfigProperties.APP_NAME);
 		}else if(cmd.equals("list")){
 			return list();
 		}else if(cmd.equals("undeploy")){
-			return undeploy(ConfigProperties.UNDEPLOY);
+			return undeploy();
 		}
 		return null;
 	}
