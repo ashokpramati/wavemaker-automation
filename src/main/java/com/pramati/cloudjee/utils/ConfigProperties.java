@@ -1,8 +1,7 @@
-package com.imaginea.cloudjee.utils;
+package com.pramati.cloudjee.utils;
 
 import java.io.IOException;
 import java.util.Properties;
-
 
 public class ConfigProperties {
 
@@ -19,18 +18,18 @@ public class ConfigProperties {
 	public static final String APPLICATION_URI;
 	public static final String CREATE_GROUP_METHOD_NAME;
 	public static final String CREATE_GRP_INVO_CNT;
-	
+
 	// Application
 	public static final String APP_NAME;
 	public static final String APP_PATH;
-	
+
 	// deploy urls
 	public static final String DEPLOY;
 	public static final String UNDEPLOY;
 	public static final String START;
 	public static final String STOP;
 	public static final String LIST;
-	
+
 	private static Properties properties = new Properties();
 
 	static {
@@ -43,14 +42,17 @@ public class ConfigProperties {
 		BASE_URI = properties.getProperty("baseUri");
 		GROUP_URI = BASE_URI + properties.getProperty("groupService");
 		PROVISION_URI = BASE_URI + properties.getProperty("provisionService");
-		ACTIVITY_PROGRESS_URI = BASE_URI + properties.getProperty("activityService");
-		APPLICATION_URI = BASE_URI + properties.getProperty("applicationService");
+		ACTIVITY_PROGRESS_URI = BASE_URI
+				+ properties.getProperty("activityService");
+		APPLICATION_URI = BASE_URI
+				+ properties.getProperty("applicationService");
 		CREATE_GROUP_METHOD_NAME = properties.getProperty("createGroupMethod");
-		CREATE_GRP_INVO_CNT = properties.getProperty("createGrpInvocationCount");	
-		
+		CREATE_GRP_INVO_CNT = properties
+				.getProperty("createGrpInvocationCount");
+
 		APP_NAME = properties.getProperty("appName");
 		APP_PATH = properties.getProperty("appPath");
-		
+
 		DEPLOY = properties.getProperty("deploy");
 		UNDEPLOY = properties.getProperty("undeploy");
 		START = properties.getProperty("start");
@@ -60,7 +62,8 @@ public class ConfigProperties {
 
 	public static void init() {
 		try {
-			properties.load(ConfigProperties.class.getResourceAsStream("/config.properties"));
+			properties.load(ConfigProperties.class
+					.getResourceAsStream("/config.properties"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

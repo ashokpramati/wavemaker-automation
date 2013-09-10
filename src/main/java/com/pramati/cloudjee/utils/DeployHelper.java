@@ -1,4 +1,4 @@
-package com.imaginea.cloudjee.utils;
+package com.pramati.cloudjee.utils;
 
 import java.io.File;
 import java.security.SecureRandom;
@@ -41,32 +41,32 @@ public class DeployHelper extends BaseTest {
 					}
 				});
 	}
-	
-	static{
+
+	static {
 		// Create a trust manager that does not validate certificate chains
-				TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
-					public X509Certificate[] getAcceptedIssuers() {
-						return null;
-					}
+		TrustManager[] trustAllCerts = new TrustManager[] { new X509TrustManager() {
+			public X509Certificate[] getAcceptedIssuers() {
+				return null;
+			}
 
-					public void checkClientTrusted(X509Certificate[] certs,
-							String authType) {
-					}
+			public void checkClientTrusted(X509Certificate[] certs,
+					String authType) {
+			}
 
-					public void checkServerTrusted(X509Certificate[] certs,
-							String authType) {
-					}
-				} };
+			public void checkServerTrusted(X509Certificate[] certs,
+					String authType) {
+			}
+		} };
 
-				// Install the all-trusting trust manager
-				try {
-					SSLContext sc = SSLContext.getInstance("TLS");
-					sc.init(null, trustAllCerts, new SecureRandom());
-					HttpsURLConnection
-							.setDefaultSSLSocketFactory(sc.getSocketFactory());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		// Install the all-trusting trust manager
+		try {
+			SSLContext sc = SSLContext.getInstance("TLS");
+			sc.init(null, trustAllCerts, new SecureRandom());
+			HttpsURLConnection
+					.setDefaultSSLSocketFactory(sc.getSocketFactory());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -85,22 +85,23 @@ public class DeployHelper extends BaseTest {
 		HttpResponse response = httpclient.execute(httppost);
 		System.out.println("ResponseCode: "
 				+ response.getStatusLine().getStatusCode());
-		
+
 		return readResponse(response);
 
 	}
-	
+
 	private String start() throws Exception {
 
 		DefaultHttpClient httpclient = CreateHttpClient
 				.createHttpClientConnection();
-		HttpPost httpget = new HttpPost(ConfigProperties.START + ConfigProperties.APP_NAME);
+		HttpPost httpget = new HttpPost(ConfigProperties.START
+				+ ConfigProperties.APP_NAME);
 		httpget.setHeader("Cookie", auth);
-		System.out.println("Start Of APP : "+httpget.getURI());
+		System.out.println("Start Of APP : " + httpget.getURI());
 		HttpResponse response = httpclient.execute(httpget);
 		System.out.println("ResponseCode: "
 				+ response.getStatusLine().getStatusCode());
-		
+
 		return readResponse(response);
 
 	}
@@ -114,11 +115,11 @@ public class DeployHelper extends BaseTest {
 		HttpResponse response = httpclient.execute(httpget);
 		System.out.println("ResponseCode: "
 				+ response.getStatusLine().getStatusCode());
-		
+
 		return readResponse(response);
 
 	}
-	
+
 	private String list() throws Exception {
 		DefaultHttpClient httpclient = CreateHttpClient
 				.createHttpClientConnection();
@@ -129,30 +130,30 @@ public class DeployHelper extends BaseTest {
 				+ response.getStatusLine().getStatusCode());
 		return readResponse(response);
 	}
-	
-	private String undeploy() throws Exception{
+
+	private String undeploy() throws Exception {
 		DefaultHttpClient httpclient = CreateHttpClient
 				.createHttpClientConnection();
-		HttpPost httpget = new HttpPost(ConfigProperties.UNDEPLOY + ConfigProperties.APP_NAME);
+		HttpPost httpget = new HttpPost(ConfigProperties.UNDEPLOY
+				+ ConfigProperties.APP_NAME);
 		httpget.setHeader("Cookie", auth);
 		HttpResponse response = httpclient.execute(httpget);
 		System.out.println("ResponseCode: "
 				+ response.getStatusLine().getStatusCode());
 		return readResponse(response);
 	}
-	
-	
-	protected String executeCommand(String cmd) throws Exception{
-		if(cmd.equals("deploy")){
+
+	protected String executeCommand(String cmd) throws Exception {
+		if (cmd.equals("deploy")) {
 			File warPath = new File(ConfigProperties.APP_PATH);
 			return deploy(warPath, ConfigProperties.APP_NAME);
-		}else if(cmd.equals("start")){
+		} else if (cmd.equals("start")) {
 			return start();
-		}else if(cmd.equals("stop")){
+		} else if (cmd.equals("stop")) {
 			return stop(ConfigProperties.APP_NAME);
-		}else if(cmd.equals("list")){
+		} else if (cmd.equals("list")) {
 			return list();
-		}else if(cmd.equals("undeploy")){
+		} else if (cmd.equals("undeploy")) {
 			return undeploy();
 		}
 		return null;
