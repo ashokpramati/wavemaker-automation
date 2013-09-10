@@ -1,25 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="CloudJee test suite" verbose="1" preserve-order="true">
-	
+
 	<!-- Parameter for deploy, Start, Stop, list, undeploy -->
-	<parameter name="type"  value="application"/>
-	<parameter name="appFileName"  value="sample.war"/>
-	<parameter name="appState"  value="STARTED"/>
-	<parameter name="instanceGroupName"  value="defaultgroup"/>
-	<parameter name="name"  value="sample"/>
-	<parameter name="sslEnabled"  value="false"/>
-	<parameter name="url"  value="http://ashok.apps.mywavemaker.com/sample/"/>	
+	<parameter name="type" value="application" />
+	<parameter name="appFileName" value="sample.war" />
+	<parameter name="appState" value="STARTED" />
+	<parameter name="instanceGroupName" value="defaultgroup" />
+	<parameter name="name" value="sample" />
+	<parameter name="sslEnabled" value="false" />
+	<parameter name="url" value="http://ashok.apps.mywavemaker.com/sample/" />
 
 	<test name="Sample Test Demonstrating testNG flow">
-	<classes>
-       <class name="com.imaginea.cloudjee.test.rest.RestApiTest" />
-    </classes>
-		<!-- <classes>			
-			<class name="com.rr.ics.tests.SmokeTest"/>
-			
-			<class name="com.imaginea.cloudjee.test.rest.RestApiTest"/>
-			<class name="com.rr.ics.tests.TestAuthentication"/>
-		</classes> -->
+		<classes>
+			<class name="com.imaginea.cloudjee.test.rest.RestApiTest" />
+		</classes>
 	</test>
 </suite>
