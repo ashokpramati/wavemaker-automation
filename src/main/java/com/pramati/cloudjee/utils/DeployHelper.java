@@ -18,7 +18,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 public class DeployHelper extends BaseTest {
 
-	private String auth;
+	private final String auth;
 
 	public DeployHelper() {
 		if (authCookie == null) {
@@ -31,15 +31,15 @@ public class DeployHelper extends BaseTest {
 
 	static {
 		javax.net.ssl.HttpsURLConnection
-				.setDefaultHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
-					public boolean verify(String hostname,
-							javax.net.ssl.SSLSession sslSession) {
-						if (hostname.equals(ConfigProperties.HOST_NAME)) {
-							return true;
-						}
-						return false;
-					}
-				});
+		.setDefaultHostnameVerifier(new javax.net.ssl.HostnameVerifier() {
+			public boolean verify(String hostname,
+					javax.net.ssl.SSLSession sslSession) {
+				if (hostname.equals(ConfigProperties.HOST_NAME)) {
+					return true;
+				}
+				return false;
+			}
+		});
 	}
 
 	static {
@@ -63,7 +63,7 @@ public class DeployHelper extends BaseTest {
 			SSLContext sc = SSLContext.getInstance("TLS");
 			sc.init(null, trustAllCerts, new SecureRandom());
 			HttpsURLConnection
-					.setDefaultSSLSocketFactory(sc.getSocketFactory());
+			.setDefaultSSLSocketFactory(sc.getSocketFactory());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -86,8 +86,7 @@ public class DeployHelper extends BaseTest {
 		System.out.println("ResponseCode: "
 				+ response.getStatusLine().getStatusCode());
 
-		return readResponse(response);
-
+		return readResponse(response);		
 	}
 
 	private String start() throws Exception {
@@ -155,6 +154,25 @@ public class DeployHelper extends BaseTest {
 			return list();
 		} else if (cmd.equals("undeploy")) {
 			return undeploy();
+		}
+		else if (cmd.equals("maxdeploy")) {          //To deploy more than one war file 
+			String deployRes = "";
+			File warPath = null;
+
+			String appName = ConfigProperties.MAX_APP_NAME; //All APP Name are retrieved from property file
+			String appPath = ConfigProperties.MAX_APP_PATH; //All APP Path are retrieved from property file
+
+			String[] maxAppName =appName.split(",");
+			String[] maxAppPath =appPath.split(",");
+
+			int appIndex = 0;
+			for (String path : maxAppPath) {
+				warPath = new File(path);
+				deployRes+= deploy(warPath, maxAppName[appIndex]);
+				appIndex++;
+			}
+
+			return deployRes;
 		}
 		return null;
 	}

@@ -22,6 +22,8 @@ public class ConfigProperties {
 	// Application
 	public static final String APP_NAME;
 	public static final String APP_PATH;
+	public static final String MAX_APP_NAME;
+	public static final String MAX_APP_PATH;
 
 	// deploy urls
 	public static final String DEPLOY;
@@ -52,6 +54,9 @@ public class ConfigProperties {
 
 		APP_NAME = properties.getProperty("appName");
 		APP_PATH = properties.getProperty("appPath");
+		
+		MAX_APP_NAME = properties.getProperty("maxAppName");
+		MAX_APP_PATH = properties.getProperty("maxAppPath");
 
 		DEPLOY = properties.getProperty("deploy");
 		UNDEPLOY = properties.getProperty("undeploy");
