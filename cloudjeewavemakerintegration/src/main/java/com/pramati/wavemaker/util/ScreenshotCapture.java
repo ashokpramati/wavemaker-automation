@@ -1,7 +1,5 @@
 package com.pramati.wavemaker.util;
 
-
-
 import java.awt.Dimension;
 import java.awt.Rectangle;
 import java.awt.Robot;
@@ -24,13 +22,15 @@ public class ScreenshotCapture {
 
 	private final static String SCREENSHOTS_DIR = "screenshots";
 	private static String imgLoc = null;
+	private static File  screenShotFile = null;
 
 	private static Logger log = Logger.getLogger(ScreenshotCapture.class);
-
+	
 	static {
-		try {
-			imgLoc = new File(".").getCanonicalPath() + File.separator
-					+ SCREENSHOTS_DIR + File.separator;
+		try {			
+			screenShotFile = new File("./target/"+SCREENSHOTS_DIR); 	// Creating Screen Shot in target directory.
+			screenShotFile.mkdir();                                 	// Making directory if deleted or Doesn't exist
+			imgLoc = screenShotFile.getCanonicalPath()+ File.separator; // Setting path of Image location
 			log.info("Screenshot location is set to '" + imgLoc + "'");
 		} catch (IOException e) {
 			e.printStackTrace();

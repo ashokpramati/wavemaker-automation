@@ -21,7 +21,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-import com.pramati.wavemaker.util.ConfigUtil;
+import com.pramati.wavemaker.util.ConfigProperties;
 
 /**
  * BasePage is the class that all other page classes should extend for web-based
@@ -76,7 +76,7 @@ public class BasePage extends DriverManager{
 	 * Starts the test by opening the browser
 	 */
 	protected void init() {
-		openUrl(ConfigUtil.getBaseUrl());
+		openUrl(ConfigProperties.URL);
 	}
 
 	/**
@@ -133,7 +133,7 @@ public class BasePage extends DriverManager{
 	 * timeout value is the timeout defined in <code>BasePage.java</code>
 	 */
 	private static void setTimeout() {
-		String timeout = ConfigUtil.getTimeOut();
+		String timeout = ConfigProperties.TIMEOUT;
 		if ((timeout != null) && (!"".equals(timeout))) {
 			timeoutMilliSeconds = timeout;
 			timeoutSeconds = Integer.parseInt(timeout) / 1000;
@@ -556,7 +556,7 @@ public class BasePage extends DriverManager{
 	 */
 	public void closeBrowser() {
 		log.info("Closing the current instance of the browser '"
-				+ ConfigUtil.getBrowser() + "'");
+				+ConfigProperties.BROWSER + "'");
 		driver.close();
 	}
 
@@ -565,7 +565,7 @@ public class BasePage extends DriverManager{
 	 */
 	public void quitBrowser() {
 		log.info("Closing all the instances of the browser '"
-				+ ConfigUtil.getBrowser() + "'");
+				+ ConfigProperties.BROWSER + "'");
 		driver.quit();
 	}
 
@@ -1029,9 +1029,46 @@ public class BasePage extends DriverManager{
 		});
 	}
 	
+	/**
+	 * Drag and drop element from Source location to target location
+	 * 
+	 * Based on Css Selector value
+	 * 
+	 * @param sourceId
+	 * @param targetId
+	 */
 	public void dragAndDropByCss(String sourceId, String targetId) {
 		WebElement source = driver.findElement(By.cssSelector(sourceId));
 		WebElement target = driver.findElement(By.cssSelector(targetId));
+		(new Actions(driver)).dragAndDrop(source, target).perform();
+	}
+	
+	
+	/**
+	 * Drag and drop element from Source location to target location
+	 * 
+	 * Based on Class Name
+	 * 
+	 * @param sourceId
+	 * @param targetId
+	 */
+	public void dragAndDropByClassName(String sourceId, String targetId) {
+		WebElement source = driver.findElement(By.className(sourceId));
+		WebElement target = driver.findElement(By.className(targetId));
+		(new Actions(driver)).dragAndDrop(source, target).perform();
+	}
+	
+	/**
+	 * Drag and drop element from Source location to target location
+	 * 
+	 * Based on XPath value
+	 * 
+	 * @param sourceId
+	 * @param targetId
+	 */
+	public void dragAndDropByXpath(String sourceId, String targetId) {
+		WebElement source = driver.findElement(By.xpath(sourceId));
+		WebElement target = driver.findElement(By.xpath(targetId));
 		(new Actions(driver)).dragAndDrop(source, target).perform();
 	}
 }

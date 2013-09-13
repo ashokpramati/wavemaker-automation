@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
-import org.testng.Assert;
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
@@ -16,8 +15,9 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.safari.SafariDriver;
+import org.testng.Assert;
 
-import com.pramati.wavemaker.util.ConfigUtil;
+import com.pramati.wavemaker.util.ConfigProperties;
 
 
 /**
@@ -41,7 +41,7 @@ public class DriverManager {
 
 	static {
 		try {
-			driverLoc = new File(ConfigUtil.getCoreDriverLocation())
+			driverLoc = new File(ConfigProperties.COREDRIVERLOC)
 					.getCanonicalPath()
 					+ File.separator;
 			log.info("Driver location is set to '" + driverLoc + "'");
@@ -57,7 +57,7 @@ public class DriverManager {
 	 * @return The driver object
 	 */
 	public static WebDriver getDriver() {
-		String browser = ConfigUtil.getBrowser();
+		String browser = ConfigProperties.BROWSER;
 
 		if (browser.equalsIgnoreCase(FIREFOX)) {
 
@@ -144,7 +144,7 @@ public class DriverManager {
 	 * @return <code>true</code> if the browser is Internet Explorer
 	 */
 	public static boolean isBrowserIE() {
-		return ConfigUtil.getBrowser().equalsIgnoreCase(INTERNET_EXPLORER);
+		return ConfigProperties.BROWSER.equalsIgnoreCase(INTERNET_EXPLORER);
 	}
 
 	/**
@@ -153,7 +153,7 @@ public class DriverManager {
 	 * @return <code>true</code> if the browser is Mozilla Firefox
 	 */
 	public static boolean isBrowserFireFox() {
-		return ConfigUtil.getBrowser().equalsIgnoreCase(FIREFOX);
+		return ConfigProperties.BROWSER.equalsIgnoreCase(FIREFOX);
 	}
 
 	/**
@@ -162,7 +162,7 @@ public class DriverManager {
 	 * @return <code>true</code> if the browser is Google Chrome
 	 */
 	public static boolean isBrowserChrome() {
-		return ConfigUtil.getBrowser().equalsIgnoreCase(CHROME);
+		return ConfigProperties.BROWSER.equalsIgnoreCase(CHROME);
 	}
 
 	/**
@@ -171,7 +171,7 @@ public class DriverManager {
 	 * @return <code>true</code> if the browser is Safari
 	 */
 	public static boolean isBrowserSafari() {
-		return ConfigUtil.getBrowser().equalsIgnoreCase(SAFARI);
+		return ConfigProperties.BROWSER.equalsIgnoreCase(SAFARI);
 	}
 
 	/**
