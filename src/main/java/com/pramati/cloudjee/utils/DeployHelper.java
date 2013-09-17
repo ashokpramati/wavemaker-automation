@@ -81,7 +81,7 @@ public class DeployHelper extends BaseTest {
 		MultipartEntity reqEntity = new MultipartEntity();
 		reqEntity.addPart("file", uploadFilePart);
 		httppost.setEntity(reqEntity);
-
+		System.out.println("Request Header :"+httppost);
 		HttpResponse response = httpclient.execute(httppost);
 		System.out.println("ResponseCode: "
 				+ response.getStatusLine().getStatusCode());
@@ -142,6 +142,30 @@ public class DeployHelper extends BaseTest {
 		return readResponse(response);
 	}
 
+	private String maxUndeploy() throws Exception {
+		DefaultHttpClient httpclient = CreateHttpClient
+				.createHttpClientConnection();
+		String undeployMsg = "";
+		String appName = ConfigProperties.MAX_APP_NAME; //All APP Name are retrieved from property file
+
+		String[] maxAppName =appName.split(",");
+		
+		for (String aName : maxAppName) {
+			HttpPost httpget = new HttpPost(ConfigProperties.UNDEPLOY
+					+ aName);
+			httpget.setHeader("Cookie", auth);
+			HttpResponse response = httpclient.execute(httpget);
+			System.out.println("ResponseCode: "
+					+ response.getStatusLine().getStatusCode());
+			undeployMsg += readResponse(response);
+		}
+
+
+
+		return undeployMsg;
+
+	}
+
 	protected String executeCommand(String cmd) throws Exception {
 		if (cmd.equals("deploy")) {
 			File warPath = new File(ConfigProperties.APP_PATH);
@@ -168,11 +192,15 @@ public class DeployHelper extends BaseTest {
 			int appIndex = 0;
 			for (String path : maxAppPath) {
 				warPath = new File(path);
-				deployRes+= deploy(warPath, maxAppName[appIndex]);
+				deployRes = deploy(warPath, maxAppName[appIndex]);
 				appIndex++;
 			}
 
 			return deployRes;
+		}
+		else if (cmd.equals("maxundeploy")) {  
+			return maxUndeploy();
+
 		}
 		return null;
 	}
