@@ -14,6 +14,7 @@
 	<test name="Sample Test Demonstrating testNG flow">
 		<classes>
 			<class name="com.pramati.cloudjee.test.rest.RestApiTest" />
+			<class name="com.pramati.cloudjee.test.rest.MaxWarUploadTest" />
 		</classes>
 	</test>
 </suite>
